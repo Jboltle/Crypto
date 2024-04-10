@@ -1,42 +1,41 @@
 import requests
 import json
-from telethon.sync import TelegramClient
-import os
-from dotenv import load_dotenv
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+import time
 
 class Main:
-    
-    def __init__(self):
-        load_dotenv()
-        self.telegram_api_key = os.getenv('telegram_api_key')
-        self.telegram_api_hash = os.getenv('telegram_api_hash')
-        self.phone_number = os.getenv('phone_number')
-        self.channel_username = os.getenv('channel_username')
-    
-    def connectToChannel(self):
-        client = TelegramClient('session_name', self.telegram_api_key, self.telegram_api_hash)
-        client.connect()
+    def scrape_dexscreener(self):
+        profile_path = 'C:/Users/Jon/AppData/Local/BraveSoftware/Brave-Browser/User Data'
+        driver_path = 'C:/Users/Jon/Desktop/Crypto/chromedriver-win64'  # Provide path to chromedriver executable
+        options = webdriver.ChromeOptions()
+        options.binary_location = 'C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe'
+        options.add_argument('user-data-dir=' + profile_path)
+        options.add_argument('executable_path=' + driver_path)  # Corrected placement of executable_path
+        driver = webdriver.Chrome(options=options)
+        
+        # Open the webpage
+        driver.get("https://dexscreener.com/?rankBy=pairAge&order=asc")
+        
+        # Wait for the page to load
+        time.sleep(3)
 
-        if not client.is_user_authorized():
-            client.send_code_request(self.phone_number)
-            client.sign_in(self.phone_number, input('Enter the code: '))
+        # Find all elements with the specified class
+        elements = driver.find_elements(By.XPATH, "//a[contains(@class, 'ds-dex-table-row-new')]")
 
-        # Get the channel entity
-        channel_entity = client.get_entity(self.channel_username)
-
-        # Retrieve messages from the channel
-        messages = []
-        for message in client.iter_messages(channel_entity):
-            messages.append(message.to_dict())
-
-        # Save messages to a JSON file
-        with open('cryptoMessages.json', 'w') as file:
-            json.dump(messages, file, indent=4)
-
-        print("Messages retrieved and saved to 'channel_messages.json'")
+        # Get href values from the elements
+        hrefs = [element.get_attribute("href") for element in elements]
+       
+        # Close the browser
+        return hrefs
+        driver.quit()
 
 
-
+    def save_to_json(self, pairs):
+        with open('crypto.json', 'w') as file:
+            json.dump(pairs, file, indent=4)
+        print("Pairs saved to 'crypto.json'.")
 
     def cryptoScreen(self, tokenAddress):
         url = 'https://api.dexscreener.com/latest/dex/tokens/' + tokenAddress 
@@ -47,6 +46,8 @@ class Main:
             print(f"Error handling request {getData.status_code}")
 
 
+# Instantiate Main class
 main = Main()
-main.connectToChannel()
 
+# Scrape dexscreener website for pairs
+main.scrape_dexscreener()

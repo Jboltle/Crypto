@@ -15,9 +15,9 @@
               "state": {
                 "file": "Crypto/Untitled.canvas",
                 "viewState": {
-                  "x": -116.65727248919598,
-                  "y": 50.881104551261416,
-                  "zoom": 0.2917478347486098
+                  "x": -175,
+                  "y": 94,
+                  "zoom": 0
                 }
               }
             }
@@ -149,14 +149,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0bea60835cad2683",
+  "active": "085ef2329c8a1b77",
   "lastOpenFiles": [
+    "LICENSE.chromedriver",
+    "chromedriver.exe",
+    "chromedriver-win64/LICENSE.chromedriver",
+    "chromedriver-win64/chromedriver.exe",
+    "chromedriver-win64",
+    "chromedriver-win64.zip",
+    "Crypto/chromedriver-win64.zip",
+    "Crypto/Unconfirmed 759234.crdownload",
+    "Crypto/DexScreener.md",
+    "Crypto/Untitled.canvas",
     "session_name.session-journal",
     "session_name.session",
     "crypto.json",
     "DexScreener.md",
-    "Crypto/DexScreener.md",
-    "Crypto/Untitled.canvas",
     "Crypto/Welcome.md",
     "Crypto/create a link.md",
     "Crypto/1.md"
