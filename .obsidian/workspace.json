@@ -1,0 +1,162 @@
+{
+  "main": {
+    "id": "2171ac57bff48c06",
+    "type": "split",
+    "children": [
+      {
+        "id": "e24a76b5cf12f008",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0bea60835cad2683",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Crypto/Untitled.canvas",
+                "viewState": {
+                  "x": -13.726390136254807,
+                  "y": 135.8399280806731,
+                  "zoom": 0.2917478347486098
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0dfc1c43cb7612a5",
+    "type": "split",
+    "children": [
+      {
+        "id": "668ef688dd2d9629",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "085ef2329c8a1b77",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "f9b8b0bfc12b7b76",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "604a27afab77f870",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "85d1731b3cb7e7c0",
+    "type": "split",
+    "children": [
+      {
+        "id": "588dc9ca0f7d90bd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ddd39fc81cb0a7b6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Crypto/Untitled.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b3a75cc17eda8a82",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Crypto/Untitled.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "61d475accb86b1e7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "c11523f0feacf4ea",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Crypto/Untitled.canvas"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "0bea60835cad2683",
+  "lastOpenFiles": [
+    "crypto.json",
+    "DexScreener.md",
+    "Crypto/DexScreener.md",
+    "Crypto/Untitled.canvas",
+    "Crypto/Welcome.md",
+    "Crypto/create a link.md",
+    "Crypto/1.md"
+  ]
+}
