@@ -25,18 +25,19 @@ class Main:
         elements = driver.find_elements(By.XPATH, "//a[contains(@class, 'ds-dex-table-row-new')]")
 
         # Get href values from the elements
-        hrefs = [element.get_attribute("href") for element in elements]
+        for element in elements:
+            print("")
+            hrefs = element.get_attribute("href") 
        
 
         for href in hrefs:
-            driver.get(href)
+            driver.get(hrefs)
             time.sleep(2)  # Add a delay to wait for the page to load
 
         # Close the browser
         driver.quit()
         # Close the browser
         return hrefs
-        driver.quit()
 
 
     def save_to_json(self, pairs):
