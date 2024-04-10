@@ -27,6 +27,13 @@ class Main:
         # Get href values from the elements
         hrefs = [element.get_attribute("href") for element in elements]
        
+
+        for href in hrefs:
+            driver.get(href)
+            time.sleep(2)  # Add a delay to wait for the page to load
+
+        # Close the browser
+        driver.quit()
         # Close the browser
         return hrefs
         driver.quit()
