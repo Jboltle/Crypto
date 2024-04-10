@@ -15,8 +15,8 @@
               "state": {
                 "file": "Crypto/Untitled.canvas",
                 "viewState": {
-                  "x": -13.726390136254807,
-                  "y": 135.8399280806731,
+                  "x": -116.65727248919598,
+                  "y": 50.881104551261416,
                   "zoom": 0.2917478347486098
                 }
               }
@@ -151,6 +151,8 @@
   },
   "active": "0bea60835cad2683",
   "lastOpenFiles": [
+    "session_name.session-journal",
+    "session_name.session",
     "crypto.json",
     "DexScreener.md",
     "Crypto/DexScreener.md",
