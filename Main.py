@@ -16,7 +16,7 @@ class Main:
         driver = webdriver.Chrome(options=options)
         
         # Open the webpage
-        driver.get("https://dexscreener.com/?rankBy=pairAge&order=asc&chainIds=solana&maxAge=6")
+        driver.get("https://dexscreener.com/new-pairs/5m?rankBy=trendingScoreM5&order=desc&minLiq=1000&maxAge=3")
 
         # Wait for the page to load
         time.sleep(3)
@@ -30,7 +30,7 @@ class Main:
         hrefs = []
 
         # Iterate over the elements to collect href links
-        for i, element in enumerate(elements[:10]):
+        for i, element in enumerate(elements[:5]):
             href = element.get_attribute("href")
             hrefs.append(href)
 
@@ -62,20 +62,26 @@ class Main:
      
 
     def cryptoScreen(self, cryptoUrls):
-        crypto_data = {}
-        for cryptoUrl in cryptoUrls:
-            url = 'https://api.dexscreener.com/latest/dex/pairs/solana/' + cryptoUrl
-            getData = requests.get(url)
-            if getData.status_code == 200:
-                print(f"Status Code: {getData.status_code}, Content: {getData.json()}")
-                crypto_data[cryptoUrl] = getData.json()
-            else:
-                print(f"Error handling request {getData.status_code}")
+            crypto_data = {}
+            for cryptoUrl in cryptoUrls:
+                url = 'https://api.dexscreener.com/latest/dex/pairs/solana/' + cryptoUrl
+                getData = requests.get(url)
+                if getData.status_code == 200:
+                    pair_data = getData.json()
+                    if 'info' in pair_data['pair']:
+                        crypto_data[cryptoUrl] = pair_data
+                    else:
+                        print(f"Pair '{cryptoUrl}' has no 'info' key.")
+                        
+                else:
+                    print(f"Error handling request {getData.status_code}")
+                    return
 
-        # Save crypto data to JSON file
-        with open('crypto.json', 'a') as file:
-            json.dump(crypto_data, file, indent=4)
-        print("Crypto data saved to 'crypto.json'.")
+            # Save crypto data to JSON file
+            with open('crypto.json', 'a') as file:
+                json.dump(crypto_data, file, indent=4)
+                print("Crypto data saved to 'crypto.json'.")
+   
 
 # Instantiate Main class
 main = Main()
