@@ -70,8 +70,8 @@ class Main:
             json.dump(pairs, file, indent=4)
         print("Pairs saved to 'crypto.json'.")
 
-    def cryptoScreen(self, tokenAddress):
-        url = 'https://api.dexscreener.com/latest/dex/tokens/' + tokenAddress 
+    def cryptoScreen(self, copied_pair):
+        url = 'https://api.dexscreener.com/latest/dex/tokens/' + copied_pair
         getData = requests.get(url)
         if getData.status_code == 200:
             print(f"Status Code: {getData.status_code}, Content: {getData.json()}")
@@ -84,3 +84,4 @@ main = Main()
 
 # Scrape dexscreener website for pairs and save them to JSON file
 main.scrape_dexscreener()
+main.cryptoScreen(self, copied_pair)
