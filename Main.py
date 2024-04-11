@@ -16,14 +16,15 @@ class Main:
         driver = webdriver.Chrome(options=options)
         
         # Open the webpage
-        driver.get("https://dexscreener.com/?rankBy=pairAge&order=asc")
-        
+        driver.get("https://dexscreener.com/?rankBy=pairAge&order=asc&chainIds=solana&maxAge=6")
+
         # Wait for the page to load
         time.sleep(3)
 
-        print("Cloudflare cookie token found")
+        # Check for Cloudflare security challenge
+        
                     
-        # Find all elements with the specified class
+            # Find all elements with the specified class
         elements = driver.find_elements(By.XPATH, "//a[contains(@class, 'ds-dex-table-row-new')]")
 
         # List to store href links
@@ -32,46 +33,38 @@ class Main:
         # Iterate over the elements to collect href links
         for i, element in enumerate(elements[:10]):
             href = element.get_attribute("href")
-            print(f"Found href {i + 1}: {href}")
             hrefs.append(href)
 
         # Iterate over the collected href links to open them
         for i, href in enumerate(hrefs):
             print(f"Opening href {i + 1}: {href}")
             driver.get(href)
-            time.sleep(5)  # Add a delay to wait for the page to load
+            time.sleep(3)  # Add a delay to wait for the page to load
 
-            try:
-                # Find and click the "Copy" button if it exists
-                copy_button = driver.find_element(By.XPATH, '//*[@title="Copy"]')
-                copy_button.click()
-                print("Clicked on the 'Copy' button")
-                time.sleep(3)  # Wait for the copy action to complete
-
+            try:        
                 # Get the copied pair
-                cryptoUrl = driver.getCurrentUrl()
-
-                print("PairKEY:", copied_pair)
-                keyPair = re.search(pattern, copied_pair,)
+                url = driver.current_url
+                cryptoUrlKey = url.split("/")[-1]
+                print("PairKEY:", cryptoUrlKey)
                 # Add the copied pair to the list
                 pairs = []
-                pairs.append(copied_pair)
-            except NoSuchElementException:
-                print("No 'Copy' button found on this page")
-
-        # Close the browser
+                pairs.append(cryptoUrlKey)
+                self.save_to_json(pairs)    
+            except IndexError:
+                print("No Pair Key")
+        
+        
         driver.quit()
 
         # Save pairs to JSON file
-        self.save_to_json(pairs)
 
-    def save_to_json(self, pairs):
+    def save_to_json(self, cryptoUrlKey):
         with open('crypto.json', 'w') as file:
-            json.dump(pairs, file, indent=4)
-        print("Pairs saved to 'crypto.json'.")
+            json.dump(cryptoUrlKey, file, indent=4)
+        print('{cryptoUrlKey} saved to crypto.json')
 
-    def cryptoScreen(self, copied_pair):
-        url = 'https://api.dexscreener.com/latest/dex/tokens/' + copied_pair
+    def cryptoScreen(self, cryptoUrlKey):
+        url = 'https://api.dexscreener.com/latest/dex/pairs/solana/' + cryptoUrlKey
         getData = requests.get(url)
         if getData.status_code == 200:
             print(f"Status Code: {getData.status_code}, Content: {getData.json()}")
@@ -82,6 +75,4 @@ class Main:
 # Instantiate Main class
 main = Main()
 
-# Scrape dexscreener website for pairs and save them to JSON file
 main.scrape_dexscreener()
-main.cryptoScreen(self, copied_pair)
