@@ -3,6 +3,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import re
 
 class Main:
     def scrape_dexscreener(self):
@@ -48,9 +49,10 @@ class Main:
                 time.sleep(3)  # Wait for the copy action to complete
 
                 # Get the copied pair
-                copied_pair = driver.execute_script("return navigator.clipboard.readText();")
-                print("Copied pair:", copied_pair)
+                cryptoUrl = driver.getCurrentUrl()
 
+                print("PairKEY:", copied_pair)
+                keyPair = re.search(pattern, copied_pair,)
                 # Add the copied pair to the list
                 pairs = []
                 pairs.append(copied_pair)
