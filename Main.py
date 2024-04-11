@@ -2,7 +2,6 @@ import requests
 import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 import time
 
 class Main:
@@ -21,24 +20,48 @@ class Main:
         # Wait for the page to load
         time.sleep(3)
 
+        print("Cloudflare cookie token found")
+                    
         # Find all elements with the specified class
         elements = driver.find_elements(By.XPATH, "//a[contains(@class, 'ds-dex-table-row-new')]")
 
-        # Get href values from the elements
-        for element in elements:
-            print("")
-            hrefs = element.get_attribute("href") 
-       
+        # List to store href links
+        hrefs = []
 
-        for href in hrefs:
-            driver.get(hrefs)
-            time.sleep(2)  # Add a delay to wait for the page to load
+        # Iterate over the elements to collect href links
+        for i, element in enumerate(elements[:10]):
+            href = element.get_attribute("href")
+            print(f"Found href {i + 1}: {href}")
+            hrefs.append(href)
+
+        # Iterate over the collected href links to open them
+        for i, href in enumerate(hrefs):
+            print(f"Opening href {i + 1}: {href}")
+            driver.get(href)
+            time.sleep(5)  # Add a delay to wait for the page to load
+
+            try:
+                # Find and click the "Copy" button if it exists
+                copy_button = driver.find_element(By.XPATH, '//*[@title="Copy"]')
+                copy_button.click()
+                print("Clicked on the 'Copy' button")
+                time.sleep(3)  # Wait for the copy action to complete
+
+                # Get the copied pair
+                copied_pair = driver.execute_script("return navigator.clipboard.readText();")
+                print("Copied pair:", copied_pair)
+
+                # Add the copied pair to the list
+                pairs = []
+                pairs.append(copied_pair)
+            except NoSuchElementException:
+                print("No 'Copy' button found on this page")
 
         # Close the browser
         driver.quit()
-        # Close the browser
-        return hrefs
 
+        # Save pairs to JSON file
+        self.save_to_json(pairs)
 
     def save_to_json(self, pairs):
         with open('crypto.json', 'w') as file:
@@ -57,5 +80,5 @@ class Main:
 # Instantiate Main class
 main = Main()
 
-# Scrape dexscreener website for pairs
+# Scrape dexscreener website for pairs and save them to JSON file
 main.scrape_dexscreener()
