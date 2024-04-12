@@ -3,7 +3,7 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-import re
+
 
 class Main:
     def scrape_dexscreener(self):
@@ -30,9 +30,9 @@ class Main:
         hrefs = []
 
         # Iterate over the elements to collect href links
-        for i, element in enumerate(elements[:5]):
-            href = element.get_attribute("href")
-            hrefs.append(href)
+        for i, element in enumerate(elements[:10]):
+            href = element.get_attribute("href") 
+            hrefs.append(href) # appends the href to the enumerated array list of hrefs
 
         # Iterate over the collected href links to open them
         pairs = []
@@ -49,6 +49,8 @@ class Main:
                 pairs.append(cryptoUrlKey)
             except IndexError:
                 print("No Pair Key")
+              
+       
         
         
         driver.quit()
@@ -59,6 +61,11 @@ class Main:
     def save_to_json(self, cryptoUrlKey):
         with open('crypto.json', 'a') as file:
             json.dump(cryptoUrlKey, file, indent=4)
+                                 
+    def cryptoInformation(self,cryptoData):
+       with open('cryptoWebsiteInformation', 'w') as cryptoInfo:
+          json.dump(cryptoData,cryptoInfo, inden=4)
+          
      
 
     def cryptoScreen(self, cryptoUrls):
@@ -73,15 +80,14 @@ class Main:
                     else:
                         print(f"Pair '{cryptoUrl}' has no 'info' key.")
                         
+                
+            cryptoInformation(self,cryptoUrls)
                 else:
                     print(f"Error handling request {getData.status_code}")
                     return
 
-            # Save crypto data to JSON file
-            with open('crypto.json', 'a') as file:
-                json.dump(crypto_data, file, indent=4)
-                print("Crypto data saved to 'crypto.json'.")
-   
+           
+                   
 
 # Instantiate Main class
 main = Main()
