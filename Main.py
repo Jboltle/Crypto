@@ -7,10 +7,10 @@ import time
 
 class Main:
     def scrape_dexscreener(self):
-        profile_path = 'C:/Users/Jon/AppData/Local/BraveSoftware/Brave-Browser/User Data'
-        driver_path = 'C:/Users/Jon/Desktop/Crypto/chromedriver-win64'  # Provide path to chromedriver executable
+        profile_path = '~/Library/Application\ Support/BraveSoftware/Brave-Browser'
+        driver_path = '~/Sandbox/CryptoProject/Crypto/chromedriver'  # Provide path to chromedriver executable
         options = webdriver.ChromeOptions()
-        options.binary_location = 'C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe'
+        options.binary_location = '/Volumes/Brave Browser/Brave Browser.app'
         options.add_argument('user-data-dir=' + profile_path)
         options.add_argument('executable_path=' + driver_path)  # Corrected placement of executable_path
         driver = webdriver.Chrome(options=options)
@@ -81,11 +81,7 @@ class Main:
                         print(f"Pair '{cryptoUrl}' has no 'info' key.")
                         
                 
-            cryptoInformation(self,cryptoUrls)
-                else:
-                    print(f"Error handling request {getData.status_code}")
-                    return
-
+         
            
                    
 
