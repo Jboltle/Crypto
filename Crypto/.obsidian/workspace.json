@@ -1,22 +1,22 @@
 {
   "main": {
-    "id": "058e57c4c292a490",
+    "id": "2171ac57bff48c06",
     "type": "split",
     "children": [
       {
-        "id": "487fae8ea17ab6fe",
+        "id": "e24a76b5cf12f008",
         "type": "tabs",
         "children": [
           {
-            "id": "26616b306bbe8d2f",
+            "id": "0bea60835cad2683",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
-                "file": "Untitled.canvas",
+                "file": "Crypto/Untitled.canvas",
                 "viewState": {
-                  "x": 0,
-                  "y": 0,
+                  "x": -175,
+                  "y": 94,
                   "zoom": 0
                 }
               }
@@ -28,15 +28,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "fa6d01c50d8e81f3",
+    "id": "0dfc1c43cb7612a5",
     "type": "split",
     "children": [
       {
-        "id": "3bb367ad348bcf3d",
+        "id": "668ef688dd2d9629",
         "type": "tabs",
         "children": [
           {
-            "id": "8cde68946e433145",
+            "id": "085ef2329c8a1b77",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -46,7 +46,7 @@
             }
           },
           {
-            "id": "fdc8c9a1279a244d",
+            "id": "f9b8b0bfc12b7b76",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +61,7 @@
             }
           },
           {
-            "id": "629effd71a039264",
+            "id": "604a27afab77f870",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -75,20 +75,20 @@
     "width": 300
   },
   "right": {
-    "id": "8b57e945f36cb227",
+    "id": "85d1731b3cb7e7c0",
     "type": "split",
     "children": [
       {
-        "id": "11b0cf07d40a3810",
+        "id": "588dc9ca0f7d90bd",
         "type": "tabs",
         "children": [
           {
-            "id": "6de002d64027dbe8",
+            "id": "ddd39fc81cb0a7b6",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.canvas",
+                "file": "Crypto/Untitled.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,19 +100,19 @@
             }
           },
           {
-            "id": "4c2888d7e6268adb",
+            "id": "b3a75cc17eda8a82",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.canvas",
+                "file": "Crypto/Untitled.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "1ccaf15a459f7d70",
+            "id": "61d475accb86b1e7",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -123,12 +123,12 @@
             }
           },
           {
-            "id": "dbd0ceb4510818dc",
+            "id": "c11523f0feacf4ea",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Untitled.canvas"
+                "file": "Crypto/Untitled.canvas"
               }
             }
           }
@@ -149,11 +149,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "26616b306bbe8d2f",
+  "active": "085ef2329c8a1b77",
   "lastOpenFiles": [
-    "create a link.md",
-    "Untitled.canvas",
-    "1.md",
-    "Welcome.md"
+    "LICENSE.chromedriver",
+    "chromedriver.exe",
+    "chromedriver-win64/LICENSE.chromedriver",
+    "chromedriver-win64/chromedriver.exe",
+    "chromedriver-win64",
+    "chromedriver-win64.zip",
+    "Crypto/chromedriver-win64.zip",
+    "Crypto/Unconfirmed 759234.crdownload",
+    "Crypto/DexScreener.md",
+    "Crypto/Untitled.canvas",
+    "session_name.session-journal",
+    "session_name.session",
+    "crypto.json",
+    "DexScreener.md",
+    "Crypto/Welcome.md",
+    "Crypto/create a link.md",
+    "Crypto/1.md"
   ]
 }

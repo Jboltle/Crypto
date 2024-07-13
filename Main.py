@@ -7,22 +7,26 @@ import time
 
 class Main:
     def scrape_dexscreener(self):
-        profile_path = '~/Library/Application\ Support/BraveSoftware/Brave-Browser'
-        driver_path = '~/Sandbox/CryptoProject/Crypto/chromedriver'  # Provide path to chromedriver executable
+        profile_path = '/Users/jboltle/Library/Application Support/BraveSoftware'
+        driver_path = '/Sandbox/CryptoProject/Crypto/chromedriver-mac-x64/chromedriver'  # Provide path to chromedriver executable
         options = webdriver.ChromeOptions()
-        options.binary_location = '/Volumes/Brave Browser/Brave Browser.app'
+        options.binary_location = '/Applications/Brave Browser.app/Contents/MacOS'
         options.add_argument('user-data-dir=' + profile_path)
         options.add_argument('executable_path=' + driver_path)  # Corrected placement of executable_path
         driver = webdriver.Chrome(options=options)
-        
+
+
+
         # Open the webpage
         driver.get("https://dexscreener.com/new-pairs/5m?rankBy=trendingScoreM5&order=desc&minLiq=1000&maxAge=3")
 
-        # Wait for the page to load
-        time.sleep(3)
+        # Wait for the page 
 
-        # Check for Cloudflare security challenge
-        
+
+        time.sleep(100)
+
+            # Check fo  r Cloudflare security challenge
+
         # Find all elements with the specified class
         elements = driver.find_elements(By.XPATH, "//a[contains(@class, 'ds-dex-table-row-new')]")
 
@@ -79,11 +83,7 @@ class Main:
                         crypto_data[cryptoUrl] = pair_data
                     else:
                         print(f"Pair '{cryptoUrl}' has no 'info' key.")
-                        
-                
-         
-           
-                   
+
 
 # Instantiate Main class
 main = Main()
