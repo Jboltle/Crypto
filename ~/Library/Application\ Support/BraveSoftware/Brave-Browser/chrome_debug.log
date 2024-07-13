@@ -1,4 +1,0 @@
-[1907:259:0712/220636.433407:WARNING:chrome_main_delegate.cc(742)] This is Chrome version 126.0.6478.126 (not a warning)
-[1907:259:0712/220637.632930:ERROR:unexportable_key_mac.mm(348)] Unexportable keys unavailable because keychain-access-group entitlement missing or incorrect. Expected value: .com.google.chrome.for.testing.devicetrust
-[1907:259:0712/220637.646174:WARNING:browser_management_service.cc(128)] EnterpriseLogoUrl fetch failed with error code -1 and MIME type 
-[1907:259:0712/220640.271125:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.
