@@ -3,27 +3,32 @@ import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-
+import os
+import asyncio
 
 class Main:
     def scrape_dexscreener(self):
-        profile_path = '/Users/jboltle/Library/Application Support/BraveSoftware'
-        driver_path = '/Sandbox/CryptoProject/Crypto/chromedriver-mac-x64/chromedriver'  # Provide path to chromedriver executable
+        profile_path = "/Users/jboltle/Library/Application Support/BraveSoftware/Default"
+        driver_path = '~/Sandbox/CryptoProject/Crypto/chromedriver-mac-x64/chromedriver'  # Provide path to chromedriver executable
         options = webdriver.ChromeOptions()
-        options.binary_location = '/Applications/Brave Browser.app/Contents/MacOS'
+        options.binary_location = "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
         options.add_argument('user-data-dir=' + profile_path)
         options.add_argument('executable_path=' + driver_path)  # Corrected placement of executable_path
         driver = webdriver.Chrome(options=options)
+        api_key = os.getenv("Helius_API_KEY")
+        async def response():
+            requests = requests.get("https://mainnet.helius-rpc.com/?api-key={api_key}")
+            print ("Data", requests.text)
+            return api_key
+        response()
 
 
 
         # Open the webpage
-        driver.get("https://dexscreener.com/new-pairs/5m?rankBy=trendingScoreM5&order=desc&minLiq=1000&maxAge=3")
 
         # Wait for the page 
 
 
-        time.sleep(100)
 
             # Check fo  r Cloudflare security challenge
 
@@ -63,7 +68,7 @@ class Main:
         self.cryptoScreen(pairs)
 
     def save_to_json(self, cryptoUrlKey):
-        with open('crypto.json', 'a') as file:
+        with open('/crypto.json', 'a') as file:
             json.dump(cryptoUrlKey, file, indent=4)
                                  
     def cryptoInformation(self,cryptoData):
