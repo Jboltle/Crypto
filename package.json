@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@solana/web3.js": "^1.95.0",
+    "axios": "^1.7.2",
+    "bigint-buffer": "^1.1.5",
+    "punycode": "^2.3.1"
+  }
+}
