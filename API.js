@@ -82,11 +82,8 @@ async function fetchRaydiumAccounts(txId, connection) {
         tokenAAccount: tokenAAccount.toBase58(),
         tokenBAccount: tokenBAccount.toBase58()
     };
-    await dexScreenerAPI(tokenAAccount);
-    fs.writeFileSync("solscanData.json", JSON.stringify(solscanData, null, 2));
 
-    // Call dexScreenerAPI
-}
+
 
 async function dexScreenerAPI(tokenAAccount) {
     const tokenAAccountBase58 = tokenAAccount.toBase58();
@@ -97,11 +94,15 @@ async function dexScreenerAPI(tokenAAccount) {
     } catch (error) {x===
         console.log("Error occurred:", error);
     }
+
+    fs.writeFileSync("solscanData.json", JSON.stringify(solscanData, null, 2));
+
 }
 
 
 function generateExplorerUrl(txId) {
     return `https://solscan.io/tx/${txId}`;
+}
 }
 
 main(connection, raydium).catch(console.error);
