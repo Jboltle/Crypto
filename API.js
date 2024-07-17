@@ -1,5 +1,6 @@
 const { Connection, PublicKey } = require("@solana/web3.js");
 const fs = require("fs");
+const axios = require("axios");
 
 const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
 const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
@@ -82,6 +83,25 @@ async function fetchRaydiumAccounts(txId, connection) {
         tokenBAccount: tokenBAccount.toBase58()
     };
     fs.writeFileSync("solscanData.json", JSON.stringify(solscanData, null, 2));
+
+    // Call dexScreenerAPI
+    await dexScreenerAPI(tokenAAccount);
+}
+
+async function dexScreenerAPI(tokenAAccount) {
+    const tokenAAccountBase58 = tokenAAccount.toBase58();
+    const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccountBase58}`;
+    console.log("API TOKEN", tokenAAccountBase58, apiURL);
+
+    try {
+        const response = await axios.get(apiURL);
+        console.table([
+            { "Response:": JSON.stringify(response.data) },
+            { "Request": response.status }
+        ]);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function generateExplorerUrl(txId) {
