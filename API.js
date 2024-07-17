@@ -82,27 +82,23 @@ async function fetchRaydiumAccounts(txId, connection) {
         tokenAAccount: tokenAAccount.toBase58(),
         tokenBAccount: tokenBAccount.toBase58()
     };
+    await dexScreenerAPI(tokenAAccount);
     fs.writeFileSync("solscanData.json", JSON.stringify(solscanData, null, 2));
 
     // Call dexScreenerAPI
-    await dexScreenerAPI(tokenAAccount);
 }
 
 async function dexScreenerAPI(tokenAAccount) {
     const tokenAAccountBase58 = tokenAAccount.toBase58();
     const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccountBase58}`;
-    console.log("API TOKEN", tokenAAccountBase58, apiURL);
-
     try {
         const response = await axios.get(apiURL);
-        console.table([
-            { "Response:": JSON.stringify(response.data) },
-            { "Request": response.status }
-        ]);
-    } catch (error) {
-        console.log(error);
+        fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data, null, 2));
+    } catch (error) {x===
+        console.log("Error occurred:", error);
     }
 }
+
 
 function generateExplorerUrl(txId) {
     return `https://solscan.io/tx/${txId}`;
