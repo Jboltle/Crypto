@@ -1,8 +1,7 @@
 const { Connection, PublicKey } = require("@solana/web3.js");
-const axios = require('axios');
 const fs = require("fs");
-const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
 
+const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
 const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
 let credits = 0;
 
@@ -10,22 +9,33 @@ const raydium = new PublicKey(RAYDIUM_PUBLIC_KEY);
 // Replace HTTP_URL & WSS_URL with QuickNode HTTPS and WSS Solana Mainnet endpoint
 const connection = new Connection(`https://frequent-soft-thunder.solana-mainnet.quiknode.pro/f0fc862dbf5b61aa9b7be9aa0e046710c7b53c5b/`, {
     wsEndpoint: `wss://frequent-soft-thunder.solana-mainnet.quiknode.pro/f0fc862dbf5b61aa9b7be9aa0e046710c7b53c5b/`,
-    httpHeaders: { "x-session-hash": SESSION_HASH }
+    httpHeaders: {"x-session-hash": SESSION_HASH}
 });
 
 // Monitor logs
-const main = async (connection, programAddress) => {
-    console.log("Monitoring logs for program:", programAddress);
+async function main(connection, programAddress) {
+    console.log("Monitoring logs for program:", programAddress.toString());
+
+    // Adding searching animation
+    let searching = true;
+    setInterval(() => {
+        if (searching) {
+            process.stdout.write("Searching for a pair");
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => process.stdout.write("."), (i + 1) * 500);
+            }
+            setTimeout(() => process.stdout.write("\r"), 2000);
+        }
+    }, 2000);
+
     connection.onLogs(
         programAddress,
         ({ logs, err, signature }) => {
-            if (err) {
-                return;
-            }
+            if (err) return;
 
             if (logs && logs.some(log => log.includes("initialize2"))) {
-                console.log("Signature for 'initialize2':", signature);
-                fetchRaydiumAccounts(signature, connection);
+                console.log("\nSignature for 'initialize2':", signature);
+                fetchRaydiumAccounts(signature, connection).then(() => searching = false);
             }
         },
         "finalized"
@@ -43,7 +53,7 @@ async function fetchRaydiumAccounts(txId, connection) {
 
     credits += 100;
 
-    const accounts = tx?.transaction.message.instructions.find(ix => ix.programId.toBase58() === RAYDIUM_PUBLIC_KEY)?.accounts;
+    const accounts = tx?.transaction.message.instructions.find(ix => ix.programId.toBase58() === RAYDIUM_PUBLIC_KEY).accounts;
 
     if (!accounts) {
         console.log("No accounts found in the transaction.");
@@ -65,35 +75,17 @@ async function fetchRaydiumAccounts(txId, connection) {
     console.table(displayData);
     console.log("Total QuickNode Credits Used in this session:", credits);
 
-
-
-
-
-const dexScreenerAPI = async () => {
-    const tokenA = tokenAAccount.toBase58();
-    const tokenB = tokenBAccount.toBase58();
-    const tokens = [tokenA, tokenB];
-
-    for (const token of tokens) {
-        const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${token}`;
-        console.log("API TOKEN", token, apiURL);
-        await axios.get(apiURL)
-            .then(function (response) {
-                console.table([{ "Response:": JSON.stringify(response.data) }, { "Request Status": response.status }]);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-}
-dexScreenerAPI();
-
+    // Write data to solscanData.json
+    const solscanData = {
+        transactionId: txId,
+        tokenAAccount: tokenAAccount.toBase58(),
+        tokenBAccount: tokenBAccount.toBase58()
+    };
+    fs.writeFileSync("solscanData.json", JSON.stringify(solscanData, null, 2));
 }
 
 function generateExplorerUrl(txId) {
-   return(`https://solscan.io/tx/${txId}`)
+    return `https://solscan.io/tx/${txId}`;
 }
-
-
 
 main(connection, raydium).catch(console.error);
