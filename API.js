@@ -15,7 +15,7 @@ const connection = new Connection(`https://frequent-soft-thunder.solana-mainnet.
 
 // Monitor logs
 const main = async (connection, programAddress) => {
-    console.log("Monitoring logs for program:", programAddress.toString());
+    console.log("Monitoring logs for program:", programAddress);
     connection.onLogs(
         programAddress,
         ({ logs, err, signature }) => {
@@ -65,51 +65,35 @@ async function fetchRaydiumAccounts(txId, connection) {
     console.table(displayData);
     console.log("Total QuickNode Credits Used in this session:", credits);
 
-    console.log("", accounts);
+
+
+
+
+const dexScreenerAPI = async () => {
+    const tokenA = tokenAAccount.toBase58();
+    const tokenB = tokenBAccount.toBase58();
+    const tokens = [tokenA, tokenB];
+
+    for (const token of tokens) {
+        const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${token}`;
+        console.log("API TOKEN", token, apiURL);
+        await axios.get(apiURL)
+            .then(function (response) {
+                console.table([{ "Response:": JSON.stringify(response.data) }, { "Request Status": response.status }]);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+}
+dexScreenerAPI();
+
 }
 
 function generateExplorerUrl(txId) {
-    axios.get('https://public-api.solscan.io/chaininfo/', {
-        params: {
-            method: "GET",
-            responseType: "json",
-            accept: 'application/json',
-            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVkQXQiOjE3MjExNjM2ODU2NjksImVtYWlsIjoiZGF4YWJlNTU3OUB2YXNvbWx5LmNvbSIsImFjdGlvbiI6InRva2VuLWFwaSIsImlhdCI6MTcyMTE2MzY4NX0.yImY6F5FhtrV2e3u3-JI-h9O4lr1owUS82hFzPGuyWM'
-        }
-    })
-    .then(response => {
-        fs.writeFileSync("/solscanData.json", JSON.stringify(response.data));
-        console.log("Data Written to /solscanData.json");
-    }).catch((err) => {
-        console.error("Error:", err);
-    });
+   return(`https://solscan.io/tx/${txId}`)
 }
+
+
 
 main(connection, raydium).catch(console.error);
-
-
-/*const dexScreenerAPI = async (tokenAAccount)  => {
-
-tokenAAccount = tokenAAccount.toBase58();
-const tokens = [];
-tokens.push(tokenAAccount);
-console.log(tokenAAccount);
-
-for (let token in tokens) {
-const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccount}`
-    console.log("API TOKEN", tokenAAccount , apiURL)
-await axios.get(apiURL)
-.then(function (response) {
-    console.table([{"Response:": JSON.stringify(response)}, {"Request" : response.status}]);
-})
-.catch(function (error) {
-    console.log(error);
-})
-
-}
-
-
-
-
-}
-*/
