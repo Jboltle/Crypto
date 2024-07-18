@@ -2,6 +2,10 @@ const { Connection, PublicKey } = require("@solana/web3.js");
 const fs = require("fs");
 const axios = require("axios");
 
+
+
+
+
 const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
 const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
 let credits = 0;
@@ -23,13 +27,15 @@ async function main(connection, programAddress) {
         if (searching) {
             process.stdout.write("Searching for a pair");
             for (let i = 0; i < 3; i++) {
-                setTimeout(() => process.stdout.write("."), (i + 1) * 500);
+                setTimeout(() => process.stdout.write("."), (i + 1) * 20);
             }
             setTimeout(() => process.stdout.write("\r"), 2000);
         }
     }, 2000);
 
+
     connection.onLogs(
+        
         programAddress,
         ({ logs, err, signature }) => {
             if (err) return;
@@ -37,6 +43,7 @@ async function main(connection, programAddress) {
             if (logs && logs.some(log => log.includes("initialize2"))) {
                 console.log("\nSignature for 'initialize2':", signature);
                 fetchRaydiumAccounts(signature, connection).then(() => searching = false);
+
             }
         },
         "finalized"
@@ -74,6 +81,23 @@ async function fetchRaydiumAccounts(txId, connection) {
     console.log("New LP Found");
     console.log(generateExplorerUrl(txId));
     console.table(displayData);
+    fs.writeFileSync("solscanData.json", JSON.stringify(tokenAAccount, null, 2));
+
+async function dexScreenerAPI(tokenAAccount) {
+    const tokenAAccountBase58 = tokenAAccount.toBase58();
+    const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccountBase58}`;
+    try {
+        const response = await axios.get(apiURL);
+        fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data, null, 2));
+    } catch (error) {
+        console.log("Error occurred:", error);
+    }
+
+
+}
+
+dexScreenerAPI(tokenAAccount)
+    
     console.log("Total QuickNode Credits Used in this session:", credits);
 
     // Write data to solscanData.json
@@ -91,11 +115,10 @@ async function dexScreenerAPI(tokenAAccount) {
     try {
         const response = await axios.get(apiURL);
         fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data, null, 2));
-    } catch (error) {x===
+    } catch (error) {
         console.log("Error occurred:", error);
     }
 
-    fs.writeFileSync("solscanData.json", JSON.stringify(solscanData, null, 2));
 
 }
 
