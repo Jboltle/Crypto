@@ -4,17 +4,19 @@ const axios = require("axios");
 
 
 
-export const apiRequest  = () => {
+ const apiRequest  = async (keysValue) => {
 const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
 const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
 let credits = 0;
 
 const raydium = new PublicKey(RAYDIUM_PUBLIC_KEY);
 // Replace HTTP_URL & WSS_URL with QuickNode HTTPS and WSS Solana Mainnet endpoint
-const connection = new Connection(`https://frequent-soft-thunder.solana-mainnet.quiknode.pro/${keyValue.api}`, {
-    wsEndpoint: `wss://frequent-soft-thunder.solana-mainnet.quiknode.pro/${keyValue.webSocket}`,
+const connection = new Connection(`https://frequent-soft-thunder.solana-mainnet.quiknode.pro/${keysValue.api}`, {
+    wsEndpoint: `wss://frequent-soft-thunder.solana-mainnet.quiknode.pro/${keysValue.websocket}`,
     httpHeaders: {"x-session-hash": SESSION_HASH}
 });
+
+console.log(connection.wsEndpoint);
 
 // Monitor logs
 async function main(connection, programAddress) {
@@ -34,7 +36,6 @@ async function main(connection, programAddress) {
 
 
     connection.onLogs(
-        
         programAddress,
         ({ logs, err, signature }) => {
             if (err) return;
@@ -118,3 +119,5 @@ function generateExplorerUrl(txId) {
 
 main(connection, raydium).catch(console.error);
 }
+
+export { apiRequest }
