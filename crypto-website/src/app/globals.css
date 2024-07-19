@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
+
+.dialogue-popup{
+
+  display: flex;
+  justify-content: center;
+  
+}
+
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;

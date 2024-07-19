@@ -2,8 +2,7 @@
 "use client"
 import { Input } from "@/components/ui/input"
 import * as React from "react"
-import { useState } from "react" 
-
+import { useState } from "react"
 import {
   Dialog,
   DialogContent,
@@ -35,12 +34,8 @@ export default function  Home ()  {
   return (
     <main>
 
-      <div>
-      <Input className="input-form" value={change}  onChange={onchange}/>
- 
-      </div>  
+      <div id="dialogue-popup">
 
-      <div >
         <DialogDemo>
 
         </DialogDemo>

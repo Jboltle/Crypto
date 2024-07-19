@@ -1,19 +1,18 @@
 const { Connection, PublicKey } = require("@solana/web3.js");
-const fs = require("fs");
 const axios = require("axios");
 
 
 
 
-
+export const apiRequest  = () => {
 const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
 const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
 let credits = 0;
 
 const raydium = new PublicKey(RAYDIUM_PUBLIC_KEY);
 // Replace HTTP_URL & WSS_URL with QuickNode HTTPS and WSS Solana Mainnet endpoint
-const connection = new Connection(`https://frequent-soft-thunder.solana-mainnet.quiknode.pro/f0fc862dbf5b61aa9b7be9aa0e046710c7b53c5b/`, {
-    wsEndpoint: `wss://frequent-soft-thunder.solana-mainnet.quiknode.pro/f0fc862dbf5b61aa9b7be9aa0e046710c7b53c5b/`,
+const connection = new Connection(`https://frequent-soft-thunder.solana-mainnet.quiknode.pro/${keyValue.api}`, {
+    wsEndpoint: `wss://frequent-soft-thunder.solana-mainnet.quiknode.pro/${keyValue.webSocket}`,
     httpHeaders: {"x-session-hash": SESSION_HASH}
 });
 
@@ -88,8 +87,7 @@ async function dexScreenerAPI(tokenAAccount) {
     const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccountBase58}`;
     try {
         const response = await axios.get(apiURL)
-        fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data));
-        console.log("Wrote data to file" , response.data)
+        console.log('dexScreenerData.json', JSON.stringify(response.data));
         
     } catch (error) {
         console.log("Error occurred:", error);
@@ -119,3 +117,4 @@ function generateExplorerUrl(txId) {
 }
 
 main(connection, raydium).catch(console.error);
+}
