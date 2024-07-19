@@ -87,8 +87,10 @@ async function dexScreenerAPI(tokenAAccount) {
     const tokenAAccountBase58 = tokenAAccount.toBase58();
     const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccountBase58}`;
     try {
-        const response = await axios.get(apiURL);
-        fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data, null, 2));
+        const response = await axios.get(apiURL)
+        fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data));
+        console.log("Wrote data to file" , response.data)
+        
     } catch (error) {
         console.log("Error occurred:", error);
     }
@@ -109,18 +111,6 @@ dexScreenerAPI(tokenAAccount)
 
 
 
-async function dexScreenerAPI(tokenAAccount) {
-    const tokenAAccountBase58 = tokenAAccount.toBase58();
-    const apiURL = `https://api.dexscreener.com/latest/dex/tokens/${tokenAAccountBase58}`;
-    try {
-        const response = await axios.get(apiURL);
-        fs.writeFileSync('dexScreenerData.json', JSON.stringify(response.data, null, 2));
-    } catch (error) {
-        console.log("Error occurred:", error);
-    }
-
-
-}
 
 
 function generateExplorerUrl(txId) {
