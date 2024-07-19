@@ -26,8 +26,6 @@ export default function  Home ()  {
 //I hate typescript
   const onchange = (event: React.ChangeEvent<HTMLInputElement>  ) => { 
     setChange(event.target.value)
-
-
     
   }
 
