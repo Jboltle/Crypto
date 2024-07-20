@@ -17,16 +17,7 @@ const apiRequest = async (keysValue) => {
     async function main(connection, programAddress) {
         console.log("Monitoring logs for program:", programAddress.toString());
 
-        let searching = true;
-        setInterval(() => {
-            if (searching) {
-                process.stdout.write("Searching for a pair");
-                for (let i = 0; i < 3; i++) {
-                    setTimeout(() => process.stdout.write("."), (i + 1) * 20);
-                }
-                setTimeout(() => process.stdout.write("\r"), 2000);
-            }
-        }, 2000);
+        
 
         connection.onLogs(
             programAddress,
@@ -34,8 +25,15 @@ const apiRequest = async (keysValue) => {
                 if (err) return;
 
                 if (logs && logs.some(log => log.includes("initialize2"))) {
-                    console.log("\nSignature for 'initialize2':", signature);
+                    console.log(" Signature for 'initialize2':", signature);
                     fetchRaydiumAccounts(signature, connection).then(() => searching = false);
+                    return (
+                        <p>
+                            `${signature}`
+                        </p>
+    
+                    )
+
                 }
             },
             "finalized"
@@ -70,6 +68,7 @@ const apiRequest = async (keysValue) => {
             { "Token": "B", "Account Public Key": tokenBAccount.toBase58() }
         ];
         console.log("New LP Found");
+        
         console.log(generateExplorerUrl(txId));
         console.table(displayData);
         fs.writeFileSync("solscanData.json", JSON.stringify(tokenAAccount, null, 2));
