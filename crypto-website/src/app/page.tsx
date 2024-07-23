@@ -13,7 +13,6 @@ import {
   DialogDemo
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { DialogProvider } from "@/components/DialogContext";
 
 export default function Home() {
   const [change, setChange] = useState('');
@@ -25,9 +24,9 @@ export default function Home() {
   return (
     <main>
       <div id="dialogue-popup">
-        <DialogProvider>
+
           <DialogDemo />
-        </DialogProvider>
+
       </div>
     </main>
   );
