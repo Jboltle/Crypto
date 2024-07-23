@@ -5,12 +5,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { apiRequest } from "../../../../API"; // Adjust the import path as needed
-import { ButtonLoading } from "../Loading";
+import { apiRequest } from "/Users/jboltle/Sandbox/CryptoProject/Crypto/crypto-website/src/app/API";
+import { ButtonLoading } from "../loading";
 const DialogDemo: React.FC = () => {
   const [api, setApi] = useState("");
   const [websocket, setWebSocket] = useState("");
   const [isLoaded, setLoaded] = useState(false);
+
+
   const apiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setApi(event.target.value);
   };
@@ -19,13 +21,14 @@ const DialogDemo: React.FC = () => {
     setWebSocket(event.target.value);
   };
 
-  const keysValue = {
+  const  keysValue = {
     api: api,
     websocket: websocket,
   };
 
   const saveChangesButton = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
+    const preventDefault = event.preventDefault();
+    
     apiRequest(keysValue);
     setLoaded(true); // Set isLoaded to true when the button is clicked
   };
@@ -35,9 +38,12 @@ const DialogDemo: React.FC = () => {
       <DialogTrigger asChild>
         <Button id="submit-button" variant="outline">Submit</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
+        
+
           <DialogTitle id="submission-button">Submit</DialogTitle>
+          
           <DialogDescription>
             Make sure that you get your API keys from <a href="https://www.quicknode.com/login" title="Quicknode Api Keys redirect">
               <strong><mark>Quicknode</mark></strong>
@@ -59,7 +65,6 @@ const DialogDemo: React.FC = () => {
               Submit
             </Button>
           ) : (
-          
             <ButtonLoading />)}
       </DialogContent>
     </Dialog>
@@ -117,6 +122,7 @@ const DialogDescription = React.forwardRef<HTMLParagraphElement, React.Component
   <DialogPrimitive.Description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
+
 
 export {
   Dialog,
