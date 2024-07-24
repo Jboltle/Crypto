@@ -7,12 +7,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiRequest } from "/Users/jboltle/Sandbox/CryptoProject/Crypto/crypto-website/src/app/API";
 import { ButtonLoading } from "../loading";
+
+
 const DialogDemo: React.FC = () => {
   const [api, setApi] = useState("");
   const [websocket, setWebSocket] = useState("");
   const [isLoaded, setLoaded] = useState(false);
 
 
+
+  const  keysValue = {
+    api: api,
+    websocket: websocket,
+  };
+
+  ;
   const apiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setApi(event.target.value);
   };
@@ -21,15 +30,11 @@ const DialogDemo: React.FC = () => {
     setWebSocket(event.target.value);
   };
 
-  const  keysValue = {
-    api: api,
-    websocket: websocket,
-  };
 
-  const saveChangesButton = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const saveChangesButton = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
     const preventDefault = event.preventDefault();
     
-    apiRequest(keysValue);
+    apiRequest();
     setLoaded(true); // Set isLoaded to true when the button is clicked
   };
 
@@ -69,7 +74,8 @@ const DialogDemo: React.FC = () => {
       </DialogContent>
     </Dialog>
   );
-};
+  
+}
 
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
@@ -125,6 +131,7 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 
 export {
+  
   Dialog,
   DialogPortal,
   DialogOverlay,
@@ -135,5 +142,6 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-  DialogDemo
+  DialogDemo,
+  
 };
