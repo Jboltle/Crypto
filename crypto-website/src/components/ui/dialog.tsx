@@ -1,19 +1,27 @@
-// dialog.tsx
-
-import React from "react";
+import React, { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { apiRequest } from "@/app/API";
+import { apiRequest } from "/Users/jboltle/Sandbox/CryptoProject/Crypto/crypto-website/src/app/API";
 import { ButtonLoading } from "../loading";
-import { useDialogContext } from "@/components/DialogContext";
+
 
 const DialogDemo: React.FC = () => {
-  const { api, setApi, websocket, setWebSocket, isLoaded, setLoaded } = useDialogContext();
+  const [api, setApi] = useState("");
+  const [websocket, setWebSocket] = useState("");
+  const [isLoaded, setLoaded] = useState(false);
 
+
+
+  const  keysValue = {
+    api: api,
+    websocket: websocket,
+  };
+
+  ;
   const apiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setApi(event.target.value);
   };
@@ -22,9 +30,11 @@ const DialogDemo: React.FC = () => {
     setWebSocket(event.target.value);
   };
 
-  const saveChangesButton = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    apiRequest(api, websocket);
+
+  const saveChangesButton = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
+    const preventDefault = event.preventDefault();
+    
+    apiRequest();
     setLoaded(true); // Set isLoaded to true when the button is clicked
   };
 
@@ -33,12 +43,14 @@ const DialogDemo: React.FC = () => {
       <DialogTrigger asChild>
         <Button id="submit-button" variant="outline">Submit</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
+        
+
           <DialogTitle id="submission-button">Submit</DialogTitle>
+          
           <DialogDescription>
-            Make sure that you get your API keys from{" "}
-            <a href="https://www.quicknode.com/login" title="Quicknode Api Keys redirect">
+            Make sure that you get your API keys from <a href="https://www.quicknode.com/login" title="Quicknode Api Keys redirect">
               <strong><mark>Quicknode</mark></strong>
             </a>
           </DialogDescription>
@@ -53,17 +65,17 @@ const DialogDemo: React.FC = () => {
             <Input id="username" onChange={websocketChange} placeholder="Enter Websocket URL" className="col-span-3" />
           </div>
         </div>
-        {!isLoaded ? (
-          <Button className="submit" type="submit" onClick={saveChangesButton}>
-            Submit
-          </Button>
-        ) : (
-          <ButtonLoading />
-        )}
+          {!isLoaded ? (
+            <Button className="submit" type="submit" onClick={saveChangesButton}>
+              Submit
+            </Button>
+          ) : (
+            <ButtonLoading />)}
       </DialogContent>
     </Dialog>
   );
-};
+  
+}
 
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
@@ -117,13 +129,19 @@ const DialogDescription = React.forwardRef<HTMLParagraphElement, React.Component
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
+
 export {
+  
   Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogClose,
   DialogTrigger,
   DialogContent,
   DialogHeader,
+  DialogFooter,
   DialogTitle,
   DialogDescription,
   DialogDemo,
-  DialogFooter,
+  
 };
