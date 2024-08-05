@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
@@ -5,8 +7,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { apiRequest } from "/Users/jboltle/Sandbox/CryptoProject/Crypto/crypto-website/src/app/API";
+import { apiRequest } from "/Users/jboltle/Sandbox/CryptoProject/Crypto/crypto-website/src/app/API.js";
 import { ButtonLoading } from "../loading";
+
 
 
 const DialogDemo: React.FC = () => {
@@ -14,14 +17,11 @@ const DialogDemo: React.FC = () => {
   const [websocket, setWebSocket] = useState("");
   const [isLoaded, setLoaded] = useState(false);
 
-
-
-  const  keysValue = {
+  const keysValue = {
     api: api,
-    websocket: websocket,
+    websocket: websocket
   };
 
-  ;
   const apiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setApi(event.target.value);
   };
@@ -30,14 +30,15 @@ const DialogDemo: React.FC = () => {
     setWebSocket(event.target.value);
   };
 
-
-  const saveChangesButton = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
-    const preventDefault = event.preventDefault();
-    
-    apiRequest();
-    setLoaded(true); // Set isLoaded to true when the button is clicked
+  const saveChangesButton = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    try {
+       apiRequest(keysValue);
+      setLoaded(true); // Set isLoaded to true when the button is clicked
+    } catch (error) {
+      console.error("Error in saveChangesButton:", error);
+    }
   };
-
   return (
     <Dialog>
       <DialogTrigger asChild>

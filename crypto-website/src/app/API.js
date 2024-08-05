@@ -1,35 +1,25 @@
 const { Connection, PublicKey } = require("@solana/web3.js");
 const axios = require("axios");
 
-const apiRequest = async (api, websocket) => {
+const apiRequest = async (keysValue) => {
   const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
   const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
   let credits = 0;
-
+console.log(keysValue)
   const raydium = new PublicKey(RAYDIUM_PUBLIC_KEY);
   // Replace HTTP_URL & WSS_URL with QuickNode HTTPS and WSS Solana Mainnet endpoint
-  const connection = new Connection(api, {
-    wsEndpoint: websocket,
+  const connection = new Connection(`https://chaotic-convincing-sunset.solana-mainnet.quiknode.pro/${keysValue.api}`, {
+    wsEndpoint: `wss://chaotic-convincing-sunset.solana-mainnet.quiknode.pro/${keysValue.websocket}`,
     httpHeaders: { "x-session-hash": SESSION_HASH }
   });
 
-  console.log(connection.wsEndpoint);
 
   // Monitor logs
   const main = async (connection, programAddress) => {
     console.log("Monitoring logs for program:", programAddress.toString());
 
     // Adding searching animation
-    let searching = true;
-    const wait = () => {
-      if (searching) {
-        console.log("Searching for a pair");
-        for (let i = 0; i < 4; i++) {
-          console.log(".");
-          return;
-        }
-      }
-    };
+
 
     connection.onLogs(
       programAddress,
@@ -38,7 +28,7 @@ const apiRequest = async (api, websocket) => {
 
         if (logs && logs.some(log => log.includes("initialize2"))) {
           console.log("\nSignature for 'initialize2':", signature);
-          fetchRaydiumAccounts(signature, connection).then(() => searching = false);
+          fetchRaydiumAccounts(signature, connection)
         }
       },
       "finalized"
