@@ -1,8 +1,9 @@
 const { Connection, PublicKey } = require("@solana/web3.js");
 const axios = require("axios");
+require ('dotenv').config()
+const RAYDIUM_PUBLIC_KEY =  "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8"
 
 const apiRequest = async (keysValue) => {
-  const RAYDIUM_PUBLIC_KEY = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8";
   const SESSION_HASH = 'QNDEMO' + Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
   let credits = 0;
 console.log(keysValue)
@@ -14,9 +15,14 @@ console.log(keysValue)
   });
 
 
-  // Monitor logs
+  // Monitor logs 
   const main = async (connection, programAddress) => {
+
+
+    
     console.log("Monitoring logs for program:", programAddress.toString());
+    alert("Monitoring logs for program:", programAddress.toString());
+    
 
     // Adding searching animation
 

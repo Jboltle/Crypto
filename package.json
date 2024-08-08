@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@raydium-io/raydium-sdk": "^1.3.1-beta.58",
     "@solana/web3.js": "^1.95.2",
     "axios": "^1.7.2",
     "bigint-buffer": "^1.1.5",
+    "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
     "punycode": "^2.3.1",
     "twilio": "^5.2.2"
