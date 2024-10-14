@@ -22,7 +22,7 @@ const getNewtokens = async () => {
     // Check if the chainId is 'solana' and push the tokenAddress if true
 
         
-        if (i.chainId ==='solana' && i.links.length > 1 && i.description.length >= 50){
+        if (i.chainId ==='solana' && i.description.length >= 50){
       tokens.push(i.tokenAddress);
       
       console.table([{
